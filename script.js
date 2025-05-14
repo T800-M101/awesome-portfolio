@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
+    // Form submission 
     const contactForm = document.querySelector('.contact-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         
@@ -96,31 +97,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 
-    // Form submission 
-    // const contactForm = document.querySelector('.contact-form').addEventListener('submit', async (e) => { 
-    //     e.preventDefault();
-        
-    //     const formData = new FormData(e.target);
-    //     const data = Object.fromEntries(formData.entries());
-      
-    //     try {
-    //     const response = await fetch('https://node-emailer.onrender.com/send-email', { 
-    //         method: 'POST',
-    //         headers: { 'Content-Type': 'application/json' },
-    //         body: JSON.stringify(data),
-    //     });
-      
-    //       if (response.ok) {
-    //         alert('Message sent!');
-    //         e.target.reset(); // Clear the form
-    //       } else {
-    //         alert('Failed to send message.');
-    //       }
-    //     } catch (error) {
-    //         console.log('ERROR', error)
-    //       alert('Network error. Please try again later.');
-    //     }
-    // });
+ 
 
     // Animate elements when scrolling
     const animateOnScroll = function() {
