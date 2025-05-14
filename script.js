@@ -49,31 +49,78 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Form submission 
+    const showModal = (message) => {
+        const modal = document.getElementById('modal');
+        const modalMessage = document.getElementById('modal-message');
+        modalMessage.textContent = message;
+        modal.classList.remove('hidden');
+    };
+    
+    const closeModal = () => {
+        document.getElementById('modal').classList.add('hidden');
+    };
+    
+    document.getElementById('modal-close').addEventListener('click', closeModal);
+    
+    // Close modal on outside click
+    window.addEventListener('click', function(event) {
+        const modal = document.getElementById('modal');
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+    
     const contactForm = document.querySelector('.contact-form').addEventListener('submit', async (e) => {
         e.preventDefault();
         
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData.entries());
-      
+    
         try {
-        const response = await fetch('https://node-emailer.onrender.com/send-email', { // Add endpoint
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data),
-        });
-          console.log('RESPONSE', response)
-      
-          if (response.ok) {
-            alert('Message sent!');
-            e.target.reset(); // Clear the form
-          } else {
-            alert('Failed to send message.');
-          }
+            const response = await fetch('https://node-emailer.onrender.com/send-email', { 
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data),
+            });
+    
+            if (response.ok) {
+                showModal('✅ Message sent successfully!');
+                e.target.reset();
+            } else {
+                showModal('❌ Failed to send message. Please try again.');
+            }
         } catch (error) {
-          alert('Network error. Please try again later.');
+            console.error('ERROR', error);
+            showModal('⚠️ Network error. Please try again later.');
         }
-      });
+    });
+    
+
+    // Form submission 
+    // const contactForm = document.querySelector('.contact-form').addEventListener('submit', async (e) => { 
+    //     e.preventDefault();
+        
+    //     const formData = new FormData(e.target);
+    //     const data = Object.fromEntries(formData.entries());
+      
+    //     try {
+    //     const response = await fetch('https://node-emailer.onrender.com/send-email', { 
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(data),
+    //     });
+      
+    //       if (response.ok) {
+    //         alert('Message sent!');
+    //         e.target.reset(); // Clear the form
+    //       } else {
+    //         alert('Failed to send message.');
+    //       }
+    //     } catch (error) {
+    //         console.log('ERROR', error)
+    //       alert('Network error. Please try again later.');
+    //     }
+    // });
 
     // Animate elements when scrolling
     const animateOnScroll = function() {
